@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>학적 조회</title>
+    <style>
+        .narrow-table {
+            border-collapse: collapse;
+            border-spacing: 0.5rem;
+            margin: left;
+            width: 20%
+        }
+
+        .narrow-table th{
+            background-color: #E0E6F8;
+        }
+        .narrow-table td {
+            border: 1px solid #ddd;
+            padding: 0.3rem;
+            width: 20%;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+            <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+                <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+                <span class="fs-4">수원대학교 학점 계산기</span>
+            </a>
+
+            <ul class="nav nav-pills">
+                <li class="nav-item"><a href="/home" class="nav-link" aria-current="page">홈</a></li>
+                <li class="nav-item"><a href="/student_info" class="nav-link">정보 입력</a></li>
+                <li class="nav-item"><a href="/info_check" class="nav-link">성적 조회</a></li>
+                <li class="nav-item"><a href="/academic_status" class="nav-link active">학적 조회</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">소개</a></li>
+            </ul>
+        </header>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <form method="post" action="">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <input type="submit" value="제출" class="btn btn-primary">
+            </form>
+            <ul class="list-group" style="width: 12%;">
+                <li class="list-group-item">전체 평균 : {{ avg_score }}</li>
+                <li class="list-group-item">전공 평균 : {{ major_avg_score }}</li>
+                <li class="list-group-item">전체 학점 : {{ total_credit }}</li>
+            </ul>
+            <table class="table narrow-table">
+                <h4>잔여 졸업 요건</h4>
+                <tr>
+                    <th class="col-2">항목</th>
+                    <th>값</th>
+                </tr>
+                <tr>
+                    <td>학점</td>
+                    <td>{{ left_credit }}</td>
+                </tr>
+                <tr>
+                    <td>학기</td>
+                    <td>{{ left_semester }}</td>
+                </tr>
+                <tr>
+                    <td>평점 기준</td>
+                    <td>{{ gpa_criterion }}</td>
+                </tr>
+                <tr>
+                    <td>졸업 프로젝트</td>
+                    <td>{{ project_criterion }}</td>
+                </tr>
+                <tr>
+                    <td>중요 핵심</td>
+                    <td>{{ left_important_main }}</td>
+                </tr>
+                <tr>
+                    <td>기초 교양</td>
+                    <td>{{ left_basic_elective }}</td>
+                </tr>
+                <tr>
+                    <td>선택 교양</td>
+                    <td>{{ left_choice_elective }}</td>
+                </tr>
+                <tr>
+                    <td>선택 교양 영역</td>
+                    <td>{{ elective_parts }}</td>
+                </tr>
+                <tr>
+                    <td>소양 교육</td>
+                    <td>{{ left_knowledge_education }}</td>
+                </tr>
+                <tr>
+                    <td>전공 기초 교양</td>
+                    <td>{{ left_major_basic_elective }}</td>
+                </tr>
+                <tr>
+                    <td>전공 핵심</td>
+                    <td>{{ left_major_essential }}</td>
+                </tr>
+                <tr>
+                    <td>전공 선택</td>
+                    <td>{{ left_major_choice }}</td>
+                </tr>
+                <tr>
+                    <td>일반 선택 교양</td>
+                    <td>{{ left_common_elective }}</td>
+                </tr>
+            </table>
+
+            {% if plot_base64 %}
+            <div class="col-md-9">
+                <img src="data:image/png;base64,{{ plot_base64 }}" alt="Average Scores Plot" style="width: 100%; height: 100%;">
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
