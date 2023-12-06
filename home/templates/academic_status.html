@@ -35,7 +35,7 @@
                 <li class="nav-item"><a href="/student_info" class="nav-link">정보 입력</a></li>
                 <li class="nav-item"><a href="/info_check" class="nav-link">성적 조회</a></li>
                 <li class="nav-item"><a href="/academic_status" class="nav-link active">학적 조회</a></li>
-                <li class="nav-item"><a href="#" class="nav-link">소개</a></li>
+                <li class="nav-item"><a href="/about" class="nav-link">소개</a></li>
             </ul>
         </header>
     </div>
@@ -47,11 +47,14 @@
                 {{ form.as_p }}
                 <input type="submit" value="제출" class="btn btn-primary">
             </form>
-            <ul class="list-group" style="width: 12%;">
-                <li class="list-group-item">전체 평균 : {{ avg_score }}</li>
-                <li class="list-group-item">전공 평균 : {{ major_avg_score }}</li>
-                <li class="list-group-item">전체 학점 : {{ total_credit }}</li>
-            </ul>
+            <div>
+                <br>
+                <h4>전체 평균 : {{ avg_score }}</h4>
+                <h4>전공 평균 : {{ major_avg_score }}</h4>
+                <h4>전체 학점 : {{ total_credit }}</h4>
+                <br>
+            </div>
+
             <table class="table narrow-table">
                 <h4>잔여 졸업 요건</h4>
                 <tr>
@@ -68,11 +71,11 @@
                 </tr>
                 <tr>
                     <td>평점 기준</td>
-                    <td>{{ gpa_criterion }}</td>
+                    <td>{{ gpa_crit }}</td>
                 </tr>
                 <tr>
                     <td>졸업 프로젝트</td>
-                    <td>{{ project_criterion }}</td>
+                    <td>{{ project_crit }}</td>
                 </tr>
                 <tr>
                     <td>중요 핵심</td>

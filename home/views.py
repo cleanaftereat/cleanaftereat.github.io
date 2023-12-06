@@ -7,6 +7,9 @@ import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
 
+
+def about(request):
+    return render(request, 'about.html', {})
 def home(request):
     Homeformset = formset_factory(HomeForm, extra=10)
     total_credit = 0
@@ -697,6 +700,8 @@ def academic_status(request):
     left_major_choice = 0
     left_common_elective = 0
     plot_base64 = None
+    gpa_crit = '미통과'
+    project_crit = '미통과'
 
     if request.method == 'POST':
         form = AcademicStatusForm(request.POST)
@@ -752,6 +757,11 @@ def academic_status(request):
                     )
                     status.save()
 
+                    if gpa_criterion:
+                        gpa_crit = '통과'
+                    if project_criterion:
+                        project_crit = '통과'
+
     else:
         form = AcademicStatusForm()
 
@@ -762,8 +772,8 @@ def academic_status(request):
         'total_credit': total_credit,
         'left_credit': left_credit,
         'left_semester': left_semester,
-        'gpa_criterion': gpa_criterion,
-        'project_criterion': project_criterion,
+        'gpa_crit': gpa_crit,
+        'project_crit': project_crit,
         'left_important_main': left_important_main,
         'left_basic_elective': left_basic_elective,
         'left_choice_elective': left_choice_elective,
